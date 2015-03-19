@@ -1,0 +1,10 @@
+default:
+  - 'copy'
+  - 'concurrent'
+  - 'autoprefixer'
+  # - 'uncss'
+  - 'requirejs'
+dev:
+  - 'clean'
+  - 'default'
+  - 'watch'
