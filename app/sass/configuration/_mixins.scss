@@ -1,3 +1,56 @@
+// Text Overflow
+//==========================================================================
+@mixin text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Clearfix
+//==========================================================================
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// Retina Images
+//==========================================================================
+@mixin image-2x($image, $width, $height) {
+  @media (min--moz-device-pixel-ratio: 1.3),
+         (-o-min-device-pixel-ratio: 2.6/2),
+         (-webkit-min-device-pixel-ratio: 1.3),
+         (min-device-pixel-ratio: 1.3),
+         (min-resolution: 1.3dppx) {
+    // on retina, use image that's scaled by 2
+    background-image: url($image);
+    background-size: $width $height;
+  }
+}
+
+// Usage
+//--------------------------------------------------------------------------
+// .logo {
+//   background: url("logo.png") no-repeat;
+//   @include image-2x("logo2x.png", 100px, 25px);
+// }
+
+// Absolute Positioned
+//==========================================================================
+@mixin pos-a ($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  position: absolute;
+}
+
 // Transform mixins
 //==========================================================================
 
@@ -9,6 +62,7 @@
   -webkit-transform: $transforms;
           transform: $transforms;
 }
+
 // rotate
 @mixin rotate ($deg) {
   @include transform(rotate(#{$deg}deg));
@@ -18,15 +72,18 @@
 @mixin scale($scale) {
    @include transform(scale($scale));
 }
+
 // translate
 @mixin translate ($x, $y) {
    @include transform(translate($x, $y));
 }
+
 // skew
 @mixin skew ($x, $y) {
    @include transform(skew(#{$x}deg, #{$y}deg));
 }
-//transform origin
+
+// transform origin
 @mixin transform-origin ($origin) {
     moz-transform-origin: $origin;
        -o-transform-origin: $origin;
@@ -37,31 +94,17 @@
 
 // Typography mixins
 //==========================================================================
-
-// Function for converting a px based font-size to rem.
-@function calculate-rem($size) {
-  $rem-size: $size / 16px;
-
-  // Default font size on html element is 100%, equivalent to 16px;
-
-  @return #{$rem-size}rem;
-}
-
-// Mixin that will include the fall back px declaration as well as the calculated rem value.
-
-@mixin font-size($size) {
-  font-size: $size;
-  font-size: calculate-rem($size);
+@mixin font-size($sizeValue: 16 ) {
+  font-size: $sizeValue + px; // fallback for old browsers
+  font-size: (0.125 * $sizeValue) + rem;
 }
 
 // Media query
 //==========================================================================
-
 @mixin respond-to($media) {
   @if $media == mobile {
     @media only screen and (max-width: $breakpoint-mobile) { @content; }
   } @else
-
   if $media == mobile-tablet {
     @media only screen and (max-width: $breakpoint-tablet) { @content; }
   }  @else
@@ -78,7 +121,6 @@
 
 // Breakpoints
 //==========================================================================
-
 @mixin mobile {
   @include respond-to(mobile) { @content; }
 }
@@ -102,7 +144,6 @@
 
 // Placeholder text color
 //==========================================================================
-
 @mixin placeholder($color: $input-color-placeholder) {
   &:-moz-placeholder { color: $color; }           // Firefox 4-18
   &::-moz-placeholder { color: $color; }          // Firefox 19+
@@ -112,7 +153,6 @@
 
 // Selection color
 //==========================================================================
-
 $prefixes: ('-moz-', '-webkit-', '');
 
 @mixin selection($color, $background) {
@@ -124,10 +164,9 @@ $prefixes: ('-moz-', '-webkit-', '');
   }
 }
 
-// User select
+// User select color
 // For selecting text on the page
 //==========================================================================
-
 @mixin user-select($select) {
   -webkit-user-select: $select;
      -moz-user-select: $select;
@@ -135,46 +174,350 @@ $prefixes: ('-moz-', '-webkit-', '');
           user-select: $select;
 }
 
-// Vertical align
+// Centering Mixin
 //==========================================================================
-
-@mixin valign {
-  text-align: center;  // align the inline(-block) elements horizontally
-  font: 0/0 a;         // remove the gap between inline(-block) elements
-
-  &:before {
-    content: '';
-    display: inline-block;
-    vertical-align: middle; // vertical alignment of the inline element
-    height: 100%;
+@mixin centerer($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50);
   }
 }
 
-// Vertical align for IE9+
+// Mixin printing a linear-gradient
 //==========================================================================
+// Convert angle
+// @author Chris Eppstein
+// @param {Number} $value - Value to convert
+// @param {String} $unit - Unit to convert to
+// @return {Number} Converted angle
+@function convert-angle($value, $unit) {
+  $convertable-units: deg grad turn rad;
+  $conversion-factors: 1 (10grad/9deg) (1turn/360deg) (3.1415926rad/180deg);
+  @if index($convertable-units, unit($value)) and index($convertable-units, $unit) {
+    @return $value
+             / nth($conversion-factors, index($convertable-units, unit($value)))
+             * nth($conversion-factors, index($convertable-units, $unit));
+  }
 
-@mixin valignmodern {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  @warn "Cannot convert `#{unit($value)}` to `#{$unit}`.";
 }
 
-%ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+// Test if `$value` is an angle
+// @param {*} $value - Value to test
+// @return {Bool}
+@function is-direction($value) {
+  $is-direction: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
+  $is-angle: type-of($value) == 'number' and index('deg' 'grad' 'turn' 'rad', unit($value));
+
+  @return $is-direction or $is-angle;
 }
 
-%table {
-  display: table;
+// Convert a direction to legacy syntax
+// @param {Keyword | Angle} $value - Value to convert
+// @require {function} is-direction
+// @require {function} convert-angle
+@function legacy-direction($value) {
+  @if is-direction($value) == false {
+    @warn "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be an angle or a direction";
+  }
+
+  $conversion-map: (
+    to top          : bottom,
+    to top right    : bottom left,
+    to right top    : left bottom,
+    to right        : left,
+    to bottom right : top left,
+    to right bottom : left top,
+    to bottom       : top,
+    to bottom left  : top right,
+    to left bottom  : right top,
+    to left         : right,
+    to left top     : right bottom,
+    to top left     : bottom right
+  );
+
+  @if map-has-key($conversion-map, $value) {
+    @return map-get($conversion-map, $value);
+  }
+
+  @return 90deg - convert-angle($value, 'deg');
 }
 
-%table-cell {
-  display: table-cell;
+// Mixin printing a linear-gradient
+// as well as a plain color fallback
+// and the `-webkit-` prefixed declaration
+// @access public
+// @param {String | List | Angle} $direction - Linear gradient direction
+// @param {Arglist} $color-stops - List of color-stops composing the gradient
+@mixin linear-gradient($direction, $color-stops...) {
+  @if is-direction($direction) == false {
+    $color-stops: ($direction, $color-stops);
+    $direction: 180deg;
+  }
+
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
 }
 
-%table-row {
-  display: table-row;
+// Usage
+//--------------------------------------------------------------------------
+// .test-1 {
+//   @include linear-gradient(#31b7d7, #edac7d);
+// }
+//
+// .test-2 {
+//   @include linear-gradient(to right, #e47d7d 0%, #c195d3 50%, #4fb4e8 100%);
+// }
+//
+// .test-3 {
+//   @include linear-gradient(42deg, #b58234 0%, #d2b545 50%, #d7c04d 50.01%, #ffffff 100%);
+// }
+
+// Yandex Bem
+//==========================================================================
+$elementSeparator: '__';
+$modifierSeparator: '--';
+
+@function containsModifier($selector) {
+  $selector: selectorToString($selector);
+  @if str-index($selector, $modifierSeparator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function selectorToString($selector) {
+  $selector: inspect($selector); //cast to string
+  $selector: str-slice($selector, 2, -2); //remove brackets
+  @return $selector;
+}
+
+@function getBlock($selector) {
+  $selector: selectorToString($selector);
+  $modifierStart: str-index($selector, $modifierSeparator) - 1;
+  @return str-slice($selector, 0, $modifierStart);
+}
+
+@mixin b($block) {
+  .#{$block} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $selector: &;
+  @if containsModifier($selector) {
+    $block: getBlock($selector);
+    @at-root {
+      #{$selector} {
+        #{$block+$elementSeparator+$element} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @at-root {
+      #{$selector+$elementSeparator+$element} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin m($modifier) {
+  @at-root {
+    #{&}#{$modifierSeparator+$modifier} {
+      @content;
+    }
+  }
+}
+
+// Usage
+//--------------------------------------------------------------------------
+// @include b(test) {
+//   background: red;
+//   @include e(element){
+//     font-size: 14px;
+//       @include m(big) {
+//         font-size: 18px;
+//       }
+//   }
+//   @include m(modifier) {
+//     color: blue;
+//     @include e(subelement) {
+//       background: gray;
+//     }
+//   }
+// }
+
+// Alerted
+//==========================================================================
+@mixin alerted() {
+  &:before {
+    content: '';
+    position: absolute;
+    top: 6px; right: 6px;
+    height: 8px; width: 8px;
+    @include border-radius(10px);
+    background-color: #f04124;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    height: 20px; width: 20px;
+    @include border-radius(20px);
+    background-color: transparent;
+    border: solid #f04124;
+    border-width: 2px; // animates
+    @include box-sizing(border-box);
+    @include animation($name: alertMe);
+  }
+}
+
+@keyframes alertMe {
+  // -vendor prefixes omitted for brevity, but should be used in production
+  from {
+    border-width: 3px;
+    border-color: gold;
+  }
+  to {
+    border-width: 0;
+    border-color: rgba(gold, .1);
+  }
+}
+
+// Triangle
+//==========================================================================
+@mixin triangle($direction, $size: 8px, $color: #222){
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0; width: 0;
+  @if ($direction == 'up'){
+    border-bottom: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: none;
+  }
+  @else if ($direction == 'down'){
+    border-top: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: none;
+  }
+  @else if ($direction == 'left'){
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    border-left: none;
+  }
+  @else if ($direction == 'right'){
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    border-right: none;
+  }
+}
+
+// Tooltip
+//==========================================================================
+@mixin tooltip($direction: ne, $bg-color: #000) {
+  // configuration variables
+  $triangle-size: 6px; // = height of triangle, width is 2x
+  $tooltip-width: 200px;
+  $fade: 300ms;
+  $white: #fff;
+  $black: #000;
+
+  position: relative; // can override this to absolute or fixed if necessary. Just can't be static
+
+  &:before,
+  &:after {
+    opacity: 0;
+    z-index: 98;
+    @include transition(opacity $fade, visibility 0ms linear $fade); // delay visibility on fade out
+    pointer-events: none;
+  }
+
+  &:before { // tooltip body
+    content: attr(data-tooltip);
+    position: absolute;
+    width: $tooltip-width;
+    padding: 10px 15px;
+    line-height: 18px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: normal;
+    white-space: normal;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    border-radius: 3px;
+    background-color: $bg-color;
+    @if lightness($bg-color) < 50% { // dynamically determine light or dark color based on $bg-color
+      color: $white;
+    } @else {
+      color: $black;
+    }
+  }
+
+  &:after { content: ''; } // tooltip carrot
+
+  // apply positioning to top and bottom values
+  @if $direction == 'nw' or $direction == 'ne' {
+    &:before {
+      top: -($triangle-size + 3px); bottom: auto; // override with auto in case this tooltip is overriding a previous instance in another direction
+      @include transform(translateY(-100%));
+    }
+    &:after {
+      @include triangle(down, $triangle-size, $bg-color);
+      top: -($triangle-size + 3px); bottom: auto;
+    }
+  }
+  @else if $direction == 'se' or $direction == 'sw' {
+    &:before {
+      bottom: -($triangle-size + 3px); top: auto; // extra 3px for spacing
+      @include transform(translateY(100%));
+    }
+    &:after {
+      @include triangle(up, $triangle-size, $bg-color);
+      bottom: -($triangle-size + 3px); top: auto;
+    }
+  }
+
+  // apply positioning to left and right values
+  @if $direction == 'ne' or $direction == 'se' {
+    &:before, &:after {
+      left: 50%; right: auto;
+      margin-left: -$triangle-size;
+    }
+    &:before { margin-left: -$triangle-size * 3; }
+  }
+  @else if $direction == 'nw' or $direction == 'sw' {
+    &:before, &:after {
+      right: 50%; left: auto;
+      margin-right: -$triangle-size;
+    }
+    &:before { margin-right: -$triangle-size * 3; }
+  }
+  @else { @warn 'direction not valid in tooltip mixin'; }
+
+
+  &:hover {
+    // putting comment here so :hover is declared first by itself to fix ie10 bug with transitions on psuedo elements- http://css-tricks.com/pseudo-element-animationstransitions-bug-fixed-in-webkit/
+    &:before, &:after {
+      opacity: 1;
+      pointer-events: all;
+      @include transition-delay(0ms);
+    }
+  }
 }

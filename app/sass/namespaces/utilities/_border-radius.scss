@@ -1,0 +1,48 @@
+// u-bdr
+@include b(u-bdr) {
+
+  // u-bdr--3
+  @include m(3) {
+    border-radius: 3px;
+  }
+
+  // u-bdr--b-3
+  @include m(b-3) {
+    border-radius: 0 0 3px 3px;
+  }
+
+  // u-bdr--t-3
+  @include m(t-3) {
+    border-radius: 3px 3px 0 0;
+  }
+
+  // u-bdr--5
+  @include m(5) {
+    border-radius: 5px;
+  }
+
+  // u-bdr--b-5
+  @include m(b-5) {
+    border-radius: 0 0 5px 5px;
+  }
+
+  // u-bdr--t-5
+  @include m(t-5) {
+    border-radius: 5px 5px 0 0;
+  }
+
+  // u-bdr--10
+  @include m(10) {
+    border-radius: 10px;
+  }
+
+  // u-bdr--t-10
+  @include m(t-10) {
+    border-radius: 10px;
+  }
+
+  // u-bdr--b-10
+  @include m(b-10) {
+    border-radius: 0 0 10px 10px;
+  }
+}

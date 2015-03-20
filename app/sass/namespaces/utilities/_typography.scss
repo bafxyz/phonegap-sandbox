@@ -1,0 +1,151 @@
+%fz-60 {
+  @include font-size(60px);
+}
+
+.u-fz-60 {
+  @extend %fz-60;
+}
+
+%fz-48 {
+  @include font-size(48px);
+}
+
+.u-fz-48 {
+  @extend %fz-48;
+}
+
+%fz-44 {
+  @include font-size(44px);
+}
+
+.u-fz-44 {
+  @extend %fz-44;
+}
+
+%fz-40 {
+  @include font-size(40px);
+}
+
+.u-fz-40 {
+  @extend %fz-40;
+}
+
+%fz-38 {
+  @include font-size(38px);
+}
+
+.u-fz-38 {
+  @extend %fz-38;
+}
+
+%fz-36 {
+  @include font-size(36px);
+}
+
+.u-fz-36 {
+  @extend %fz-36;
+}
+
+%fz-32 {
+  @include font-size(32px);
+}
+
+.u-fz-32 {
+  @extend %fz-32;
+}
+
+%fz-30 {
+  @include font-size(30px);
+}
+
+.u-fz-30 {
+  @extend %fz-30;
+}
+
+%fz-28 {
+  @include font-size(28px);
+}
+
+.u-fz-28 {
+  @extend %fz-28;
+}
+
+%fz-24 {
+  @include font-size(24px);
+}
+
+.u-fz-24 {
+  @extend %fz-24;
+}
+
+%fz-22 {
+  @include font-size(22px);
+}
+
+.u-fz-22 {
+  @extend %fz-22;
+}
+
+%fz-20 {
+  @include font-size(20px);
+}
+
+.u-fz-20 {
+  @extend %fz-20;
+}
+
+.u-fw-400 {
+  font-weight: 400;
+}
+
+.u-fw-500 {
+  font-weight: 500;
+}
+
+.u-fw-700 {
+  font-weight: 700;
+}
+
+.u-tt-u {
+  text-transform: uppercase;
+}
+
+.u-lh-1 {
+  line-height: 1;
+}
+
+.u-lh-1-1 {
+  line-height: 1.1;
+}
+
+.u-lh-1-2 {
+  line-height: 1.2;
+}
+
+.u-lh-1-3 {
+  line-height: 1.3;
+}
+
+.u-lh-1-4 {
+  line-height: 1.4;
+}
+
+.u-lh-1-5 {
+  line-height: 1.5;
+}
+
+.u-ta-l {
+  text-align: left;
+}
+
+.u-ta-r {
+  text-align: right;
+}
+
+.u-ta-c {
+  text-align: center;
+}
+
+.u-text-overflow {
+  @include text-overflow;
+}

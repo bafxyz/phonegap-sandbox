@@ -1,0 +1,24 @@
+// u-bd
+@include b(u-bd) {
+  border-style: solid;
+
+  // u-bd--t
+  @include m(t) {
+    border-top-width: 1px;
+  }
+
+  // u-bd--b
+  @include m(b) {
+    border-bottom-width: 1px;
+  }
+
+  // u-bd--l
+  @include m(l) {
+    border-left-width: 1px;
+  }
+
+  // u-bd--r
+  @include m(r) {
+    border-left-width: 1px;
+  }
+}

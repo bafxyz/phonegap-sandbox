@@ -1,0 +1,62 @@
+// Common styles
+//==========================================================================
+
+// Mobile enhancements
+* {
+  // make transparent link selection, adjust last value opacity 0 to 1.0
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+%body-mobile {
+  // prevent callout to copy image, etc when tap to hold
+  -webkit-touch-callout: none;
+
+  // prevent webkit from resizing text to fit
+  -webkit-text-size-adjust: none;
+
+  // prevent copy paste, to allow, change 'none' to 'text'
+  -webkit-user-select: none;
+
+  -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+html,
+input,
+textarea,
+select,
+button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Layout styles
+html {
+  height: 100%;
+  font-size: 50%;
+}
+
+body {
+  @extend %body-mobile;
+  @extend %fz-28;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  color: #a1aab2;
+}
+
+// 300ms delay elimination
+a,
+button,
+.c-btn {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+a:hover,
+a:focus,
+a:active {
+  outline: none;
+  text-decoration: none;
+}

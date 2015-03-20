@@ -1,0 +1,27 @@
+// Backgrounds
+
+// u-bgc
+@include b(u-bgc) {
+
+  @include m(white) {
+    background-color: #fff;
+  }
+
+  @include m(black) {
+    background-color: #000;
+  }
+}
+
+// Colors
+
+// .u-c
+@include b(u-c) {
+
+  @include m(white) {
+    color: #fff;
+  }
+
+  @include m(black) {
+    color: #000;
+  }
+}

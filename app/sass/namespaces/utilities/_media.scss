@@ -1,0 +1,19 @@
+.u-va-t {
+  vertical-align: top;
+}
+
+.u-va-b {
+  vertical-align: bottom;
+}
+
+.u-va-bline {
+  vertical-align: baseline;
+}
+
+.u-va-m {
+  vertical-align: middle;
+}
+
+.u-center {
+  @include centerer;
+}

@@ -1,0 +1,22 @@
+%dt {
+  display: table;
+}
+
+%dtc {
+  display: table-cell;
+}
+
+// .u-dt
+@include b(u-dt) {
+  @extend %dt;
+}
+
+// .u-dtc
+@include b(u-dtc) {
+  @extend %dtc;
+}
+
+// .u-tbl-f
+.u-tbl-f {
+  table-layout: fixed;
+}

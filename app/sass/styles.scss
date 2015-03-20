@@ -10,80 +10,32 @@
 //==========================================================================
 @import 'configuration/_variables';
 @import 'configuration/_mixins';
-@import 'configuration/_bem';
 
-// Mobile enhancements
-* {
-  // make transparent link selection, adjust last value opacity 0 to 1.0
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
+// Common styles
+//==========================================================================
+@import "_common";
 
-%body-mobile {
-  // prevent callout to copy image, etc when tap to hold
-  -webkit-touch-callout: none;
+// Object namespaces
+//==========================================================================
+@import 'namespaces/objects/_canvas';
+@import 'namespaces/objects/_layout';
+@import 'namespaces/objects/_menu';
+@import 'namespaces/objects/_popups';
 
-  // prevent webkit from resizing text to fit
-  -webkit-text-size-adjust: none;
+// Components namespaces
+//==========================================================================
+@import 'namespaces/components/_buttons';
+@import 'namespaces/components/_icons';
 
-  // prevent copy paste, to allow, change 'none' to 'text'
-  -webkit-user-select: none;
-}
-
-html,
-input,
-textarea,
-select,
-button {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-// Layout styles
-html {
-  height: 100%;
-}
-
-body {
-  @extend %body-mobile;
-  font-family: sans-serif;
-  overflow-x: hidden;
-  font-size: 14px;
-  height: 100%;
-}
-
-a {
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-// l-content
-@include b(l-content) {
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 50px;
-}
-
-// c-logo
-@include b(c-logo) {
-  position: absolute;
-  top: 20px;
-  left: 100px;
-  width: 100px;
-  height:100px;
-  background-color: #f00;
-  display: inline-block;
-}
-
-// c-blue
-@include b(c-blue) {
-  position: absolute;
-  top: 150px;
-  left: 100px;
-  width: 100px;
-  height:100px;
-  background-color: blue;
-  cursor: pointer;
-}
+// Utility namespaces
+//==========================================================================
+@import 'namespaces/utilities/_border-radius';
+@import 'namespaces/utilities/_borders';
+@import 'namespaces/utilities/_cf';
+@import 'namespaces/utilities/_colors';
+@import 'namespaces/utilities/_indents';
+@import 'namespaces/utilities/_media';
+@import 'namespaces/utilities/_overflow';
+@import 'namespaces/utilities/_sizes';
+@import 'namespaces/utilities/_tables';
+@import 'namespaces/utilities/_typography';
