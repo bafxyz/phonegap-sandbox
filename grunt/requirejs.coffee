@@ -2,7 +2,7 @@ module.exports =
   browser:
     options:
       name: 'config'
-      optimize: 'none'
+      optimize: 'uglify2'
       baseUrl: 'www/js'
       mainConfigFile: 'www/js/config.js'
       out: 'www/js/main.min.js'

@@ -3,6 +3,7 @@ module.exports =
     logConcurrentOutput: true
 
   steps: [
+    'shell'
     'sass'
     'coffee'
   ]
