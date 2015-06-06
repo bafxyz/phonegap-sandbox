@@ -33,5 +33,8 @@ require.config
 
 require([
   'app'
-  ]
+  'options'
+  ], (app, options) ->
+    # Start our application and pass options to it
+    app.start options
 )
