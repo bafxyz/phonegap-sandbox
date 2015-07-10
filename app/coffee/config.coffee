@@ -2,7 +2,6 @@
 
 require.config
   paths:
-
     # jQuery
     'jquery': '../../bower_components/jquery/dist/jquery'
 

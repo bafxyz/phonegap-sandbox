@@ -18,7 +18,7 @@
 // .c-btn
 @include b(c-btn) {
   @extend %fz-32;
-  @include user-select(none);
+  user-select: none;
   display: inline-block;
   margin-bottom: 0; // For input.btn
   font-weight: 500;

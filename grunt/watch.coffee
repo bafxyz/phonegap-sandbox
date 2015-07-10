@@ -18,8 +18,8 @@ module.exports =
     ]
     tasks: [
       'sass'
-      'postcss'
       # 'uncss'
+      'postcss'
     ]
     options:
       livereload: true

@@ -6,20 +6,6 @@
   text-overflow: ellipsis;
 }
 
-// Clearfix
-//==========================================================================
-@mixin clearfix {
-  &:before,
-  &:after {
-    content: '';
-    display: table;
-  }
-
-  &:after {
-    clear: both;
-  }
-}
-
 // Retina Images
 //==========================================================================
 @mixin image-2x($image, $width, $height) {
@@ -41,26 +27,12 @@
 //   @include image-2x("logo2x.png", 100px, 25px);
 // }
 
-// Absolute Positioned
-//==========================================================================
-@mixin pos-a ($top: auto, $right: auto, $bottom: auto, $left: auto) {
-  top: $top;
-  right: $right;
-  bottom: $bottom;
-  left: $left;
-  position: absolute;
-}
-
 // Transform mixins
 //==========================================================================
 
 // generic transform
 @mixin transform($transforms) {
-     -moz-transform: $transforms;
-       -o-transform: $transforms;
-      -ms-transform: $transforms;
-  -webkit-transform: $transforms;
-          transform: $transforms;
+  transform: $transforms;
 }
 
 // rotate
@@ -85,17 +57,12 @@
 
 // transform origin
 @mixin transform-origin ($origin) {
-    moz-transform-origin: $origin;
-       -o-transform-origin: $origin;
-      -ms-transform-origin: $origin;
-  -webkit-transform-origin: $origin;
-          transform-origin: $origin;
+  transform-origin: $origin;
 }
 
 // Typography mixins
 //==========================================================================
 @mixin font-size($sizeValue: 16 ) {
-  font-size: $sizeValue + px; // fallback for old browsers
   font-size: (0.125 * $sizeValue) + rem;
 }
 
@@ -141,7 +108,6 @@
   @include respond-to(desktop) { @content; }
 }
 
-
 // Placeholder text color
 //==========================================================================
 @mixin placeholder($color: $input-color-placeholder) {
@@ -162,16 +128,6 @@ $prefixes: ('-moz-', '-webkit-', '');
       background: $background;
     }
   }
-}
-
-// User select color
-// For selecting text on the page
-//==========================================================================
-@mixin user-select($select) {
-  -webkit-user-select: $select;
-     -moz-user-select: $select;
-      -ms-user-select: $select; // IE10+
-          user-select: $select;
 }
 
 // Centering Mixin

@@ -1,4 +1,4 @@
 module.exports =
   dist:
     files:
-      'css/styles.css': ['http://127.0.0.1:8000/']
+      'www/css/styles.min.css': ['http://127.0.0.1:9001/']

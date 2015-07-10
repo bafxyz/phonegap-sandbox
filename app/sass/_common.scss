@@ -37,7 +37,10 @@ html {
 }
 
 body {
+  @include font-size(16);
   @extend %body-mobile;
+  lost-utility: edit;
+  user-select: none;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   height: 100%;

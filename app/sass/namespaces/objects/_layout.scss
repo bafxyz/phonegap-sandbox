@@ -1,4 +1,15 @@
 // o-layout
 @include b(o-layout) {
+  lost-utility: clearfix;
+  lost-center: 980px;
 
+  @include e(quarter) {
+    lost-column: 1/4 0;
+    overflow: hidden;
+  }
+
+  @include e(half) {
+    lost-column: 1/2 0;
+    overflow: hidden;
+  }
 }
