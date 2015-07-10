@@ -17,7 +17,7 @@ grunt (http://gruntjs.com/getting-started)
 
 ### Run
 grunt dev
-grunt connect:keepalive
+grunt connect
 
 ### Compile
 Android:

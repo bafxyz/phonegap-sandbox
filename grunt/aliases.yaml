@@ -1,7 +1,7 @@
 default:
   - 'copy'
   - 'concurrent'
-  - 'autoprefixer'
+  - 'postcss'
   # - 'uncss'
   - 'requirejs'
 dev:

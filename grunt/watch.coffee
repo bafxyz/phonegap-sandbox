@@ -18,7 +18,7 @@ module.exports =
     ]
     tasks: [
       'sass'
-      'autoprefixer'
+      'postcss'
       # 'uncss'
     ]
     options:
